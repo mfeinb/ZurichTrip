@@ -45,6 +45,7 @@ export type TransitLeg = {
   to: string;
   mode: TransportMode;
   duration: string;
+  recommendedTime?: string;
   guidance: string;
 };
 
@@ -166,6 +167,23 @@ export const places: Place[] = [
     ],
   },
   {
+    id: "bern-hotel",
+    name: "Bern Backpackers Hotel Glocke",
+    kind: "Booked hotel",
+    region: "Bern Old City",
+    coordinates: [46.9482, 7.4476],
+    role: "Bern night: Jul 13",
+    note: "Booked Bern old-city base near the clock tower and arcades.",
+    bestFor: "A final night that puts the old-city walk directly outside the door before returning to Zurich.",
+    allow: "Plan roughly 10-15 minutes from Bern station on foot or a very short tram hop with luggage.",
+    dontMiss: ["Zytglogge nearby", "Covered arcades", "Old city cafes"],
+    practical: "Use the hotel or station lockers for luggage during the Jul 14 old-city loop.",
+    extraDetails: [
+      "This makes Bern feel like part of the route instead of an extra day trip.",
+      "The pin is close to the old-city core; confirm exact check-in details from the booking.",
+    ],
+  },
+  {
     id: "bern-old-city",
     name: "Bern Old City",
     kind: "Historic walking area",
@@ -180,6 +198,23 @@ export const places: Place[] = [
     extraDetails: [
       "This is the part of Bern that makes the day trip worthwhile, so prioritize the old city over trying to cover the whole city.",
       "Because the streets are compact and mostly walkable, it is easy to shorten the loop if the Zurich return becomes the priority.",
+    ],
+  },
+  {
+    id: "lucerne-hotel",
+    name: "Capsule Hotel - Lucerne Old Town",
+    kind: "Booked hotel",
+    region: "Lucerne Old Town",
+    coordinates: [47.0501, 8.3037],
+    role: "Lucerne nights: Jul 9 and Jul 10",
+    note: "Booked Lucerne base in the old town, west of the river and walkable to the station/lakefront.",
+    bestFor: "A simple first base for the Zurich arrival night and the Rigi day, with old-town food and evening walks nearby.",
+    allow: "Plan roughly 10-15 minutes on foot between Lucerne station/lakefront and the hotel, depending on luggage pace.",
+    dontMiss: ["Old town lanes", "Chapel Bridge walk", "Easy station access"],
+    practical: "After arriving from Zurich, check in first, then keep the evening to dinner and a short lake/old-town walk.",
+    extraDetails: [
+      "Use this as the luggage anchor before the Rigi loop.",
+      "The pin is a planning marker; confirm the exact entrance from the hotel confirmation before arrival.",
     ],
   },
   {
@@ -265,6 +300,23 @@ export const places: Place[] = [
     extraDetails: [
       "Lauterbrunnen is the emotional center of the itinerary: cliffs, waterfalls, and evening quiet after day-trippers leave.",
       "Two nights here protect the mountain-day decision from weather; do not overpack every hour.",
+    ],
+  },
+  {
+    id: "lauterbrunnen-hotel",
+    name: "Alpine Base Hostel - Adults only",
+    kind: "Booked hotel",
+    region: "Lauterbrunnen",
+    coordinates: [46.5904, 7.909],
+    role: "Lauterbrunnen nights: Jul 11 and Jul 12",
+    note: "Booked Lauterbrunnen base for the Jungfrau-region nights.",
+    bestFor: "Sleeping in the valley while keeping Mürren, Schilthorn, Wengen, waterfalls, and Interlaken reachable.",
+    allow: "Expect a short local arrival transfer or a longer walk from Lauterbrunnen station if carrying bags.",
+    dontMiss: ["Staubbach Falls nearby", "Valley evening", "Easy mountain-day base"],
+    practical: "On arrival day, drop bags before choosing Mürren versus waterfalls; keep the mountain day light on luggage.",
+    extraDetails: [
+      "This keeps the plan flexible between Schilthorn and Jungfraujoch.",
+      "Check the hotel confirmation for the easiest station-to-hostel route before arrival.",
     ],
   },
   {
@@ -485,20 +537,21 @@ export const dayPlans: DayPlan[] = [
     id: 1,
     date: "Thu, Jul 9",
     title: "Zurich workday, evening to Lucerne",
-    base: "Overnight Lucerne",
+    base: "Capsule Hotel - Lucerne Old Town",
     summary:
       "Keep the workday simple in Zurich, then take an evening train to Lucerne so the first scenic morning starts already by the lake.",
     jawDrop: "A low-friction sunset arrival in Lucerne, with the lakefront and old town ready for a short evening walk.",
     effort: "Very easy",
     weather: "Good in almost any weather; if it is rainy, make the evening about hotel check-in, dinner, and rail/pass setup.",
-    route: ["zurich", "lucerne"],
+    route: ["zurich", "lucerne-hotel"],
     legs: [
       {
         from: "Zurich work base / Zurich HB",
         to: "Lucerne",
         mode: "train",
         duration: "~45-55 min",
-        guidance: "Travel after work and check into Lucerne; this removes the Day 2 morning transfer.",
+        recommendedTime: "Aim for a post-work departure around 17:30-19:00.",
+        guidance: "Travel after work, walk or take a short local hop to the hotel, and check in; this removes the Day 2 morning transfer.",
       },
     ],
     highlights: ["Easy Zurich departure", "Lucerne lakefront evening", "Early setup for the Rigi day"],
@@ -525,19 +578,28 @@ export const dayPlans: DayPlan[] = [
     id: 2,
     date: "Fri, Jul 10",
     title: "Lucerne and Mt. Rigi",
-    base: "Overnight Lucerne",
+    base: "Capsule Hotel - Lucerne Old Town",
     summary:
       "Wake up in Lucerne, then make the classic lake-and-cogwheel loop to Rigi Kulm for the first proper Alpine panorama.",
     jawDrop: "Rigi Kulm gives a 360-degree view over Lake Lucerne, nearby ridges, and layers of Alpine peaks.",
     effort: "Easy scenic",
     weather: "Worth doing in mixed weather if clouds are high; if the summit is socked in, stay lower around Lucerne and the lake.",
-    route: ["lucerne", "vitznau", "rigi", "lucerne"],
+    route: ["lucerne-hotel", "lucerne", "vitznau", "rigi", "lucerne", "lucerne-hotel"],
     legs: [
+      {
+        from: "Capsule Hotel - Lucerne Old Town",
+        to: "Lucerne boat pier / station",
+        mode: "walk",
+        duration: "~10-15 min",
+        recommendedTime: "Leave the hotel around 08:30-09:00 for an unhurried Rigi day.",
+        guidance: "Walk through the old town toward the station and lake piers; keep the exact boat time flexible until you check the day’s timetable.",
+      },
       {
         from: "Lucerne",
         to: "Vitznau",
         mode: "boat",
         duration: "~1 hr",
+        recommendedTime: "Target a morning boat around 09:00-10:00.",
         guidance: "Pick a boat that connects cleanly with the Rigi cogwheel train.",
       },
       {
@@ -545,6 +607,7 @@ export const dayPlans: DayPlan[] = [
         to: "Rigi Kulm",
         mode: "cogwheel",
         duration: "~35-45 min",
+        recommendedTime: "Connect from the boat with buffer, ideally reaching Rigi Kulm before lunch.",
         guidance: "Ride up for summit views, then return by Vitznau or via Arth-Goldau if timing works.",
       },
       {
@@ -552,7 +615,16 @@ export const dayPlans: DayPlan[] = [
         to: "Lucerne",
         mode: "cogwheel",
         duration: "~1.5-2 hr",
-        guidance: "Descend and connect back to Lucerne for the overnight; choose the return side by timetable and pass coverage.",
+        recommendedTime: "Start descending around 15:00-16:30 if you want a relaxed Lucerne dinner.",
+        guidance: "Descend and connect back to Lucerne; choose the return side by timetable and pass coverage.",
+      },
+      {
+        from: "Lucerne station / lakefront",
+        to: "Capsule Hotel - Lucerne Old Town",
+        mode: "walk",
+        duration: "~10-15 min",
+        recommendedTime: "Return before dinner, or later if the weather makes Lucerne evening time appealing.",
+        guidance: "Use the hotel as the luggage and evening reset point after the Rigi loop.",
       },
     ],
     highlights: ["Lucerne lakefront", "Historic boat approach", "Rigi Kulm summit", "Old town dinner"],
@@ -581,19 +653,20 @@ export const dayPlans: DayPlan[] = [
     id: 3,
     date: "Sat, Jul 11",
     title: "Panorama train to Lauterbrunnen",
-    base: "Overnight Lauterbrunnen",
+    base: "Alpine Base Hostel - Adults only",
     summary:
       "Take the Luzern-Interlaken Express through lakes and mountain passes, continue into Lauterbrunnen, then use Mürren as the easy first Jungfrau viewpoint.",
     jawDrop: "The arrival into Lauterbrunnen stacks vertical cliffs, waterfalls, and high peaks into one valley.",
     effort: "Easy scenic",
     weather: "Still strong in moody weather; waterfalls and valley drama can be better after rain.",
-    route: ["lucerne", "interlaken", "lauterbrunnen", "murren", "lauterbrunnen"],
+    route: ["lucerne-hotel", "interlaken", "lauterbrunnen", "lauterbrunnen-hotel", "murren", "lauterbrunnen-hotel"],
     legs: [
       {
-        from: "Lucerne",
+        from: "Capsule Hotel - Lucerne Old Town / Lucerne station",
         to: "Interlaken Ost",
         mode: "train",
         duration: "~1 hr 50 min",
+        recommendedTime: "Aim for a mid-morning train around 09:00-10:00.",
         guidance: "Use the Luzern-Interlaken Express; seat reservations are optional but useful in peak season.",
       },
       {
@@ -601,20 +674,31 @@ export const dayPlans: DayPlan[] = [
         to: "Lauterbrunnen",
         mode: "train",
         duration: "~20 min",
+        recommendedTime: "Connect onward after the panorama train; avoid a long Interlaken stop while carrying bags.",
         guidance: "Local train into the valley; keep luggage simple for station transfers.",
       },
       {
-        from: "Lauterbrunnen",
+        from: "Lauterbrunnen station",
+        to: "Alpine Base Hostel - Adults only",
+        mode: "walk",
+        duration: "~10-20 min",
+        recommendedTime: "Drop bags before choosing the afternoon plan.",
+        guidance: "Check the booking for the easiest arrival route; if luggage feels heavy, use local transport or a short taxi rather than forcing the walk.",
+      },
+      {
+        from: "Alpine Base Hostel - Adults only / Lauterbrunnen",
         to: "Mürren",
         mode: "cable-car",
         duration: "~25-40 min",
+        recommendedTime: "Go up around 15:00-16:30 if weather and energy are good.",
         guidance: "Use whichever public-transport route is operating best that day; confirm maintenance and bus substitutes.",
       },
       {
         from: "Mürren",
-        to: "Lauterbrunnen",
+        to: "Alpine Base Hostel - Adults only",
         mode: "cable-car",
         duration: "~25-40 min",
+        recommendedTime: "Return before dinner and before the late-evening mountain connections get sparse.",
         guidance: "Return to Lauterbrunnen for the overnight, leaving margin for dinner and a calmer valley evening.",
       },
     ],
@@ -643,19 +727,20 @@ export const dayPlans: DayPlan[] = [
     id: 4,
     date: "Sun, Jul 12",
     title: "Choose the mountain by visibility",
-    base: "Overnight Lauterbrunnen",
+    base: "Alpine Base Hostel - Adults only",
     summary:
       "This is the expensive/high-reward day, so decide the night before or morning of based on webcams, cloud ceiling, and energy.",
     jawDrop: "Schilthorn is the simpler dramatic peak; Jungfraujoch is the glacier bucket-list day.",
     effort: "Easy scenic",
     weather: "Only commit to the high summit if webcams show clear upper elevations. Low clouds can erase the value fast.",
-    route: ["lauterbrunnen", "murren", "schilthorn", "murren", "lauterbrunnen"],
+    route: ["lauterbrunnen-hotel", "murren", "schilthorn", "murren", "lauterbrunnen-hotel"],
     legs: [
       {
-        from: "Lauterbrunnen",
+        from: "Alpine Base Hostel - Adults only / Lauterbrunnen",
         to: "Mürren / Stechelberg access",
         mode: "cable-car",
         duration: "~25-45 min",
+        recommendedTime: "If webcams are good, start around 08:30-09:30.",
         guidance: "Start with the access route that is operating best that morning; this is the gateway to the Schilthorn day.",
       },
       {
@@ -663,6 +748,7 @@ export const dayPlans: DayPlan[] = [
         to: "Schilthorn",
         mode: "cable-car",
         duration: "~30-60 min with connections",
+        recommendedTime: "Try to be at Birg/Piz Gloria before midday for clearer odds and less rush.",
         guidance: "Continue upward if webcams look good; Birg is the useful intermediate stop for the Thrill Walk.",
       },
       {
@@ -670,13 +756,15 @@ export const dayPlans: DayPlan[] = [
         to: "Mürren",
         mode: "cable-car",
         duration: "~30-45 min",
+        recommendedTime: "Start descending mid-afternoon unless visibility is excellent and you want to linger.",
         guidance: "Descend in stages so you can keep Birg or Mürren time flexible.",
       },
       {
         from: "Mürren",
-        to: "Lauterbrunnen",
+        to: "Alpine Base Hostel - Adults only",
         mode: "cable-car",
         duration: "~25-40 min",
+        recommendedTime: "Return with a healthy buffer before last connections.",
         guidance: "Return to Lauterbrunnen for the overnight; keep enough margin for last operating connections.",
       },
     ],
@@ -720,19 +808,20 @@ export const dayPlans: DayPlan[] = [
     id: 5,
     date: "Mon, Jul 13",
     title: "Lake Brienz, then Bern",
-    base: "Overnight Bern",
+    base: "Bern Backpackers Hotel Glocke",
     summary:
       "Use this as a softer scenic day after the mountain stretch: turquoise Lake Brienz, then continue to Bern for the night instead of backtracking from Zurich later.",
     jawDrop: "Lake Brienz has glacial turquoise water, while Harder Kulm gives a compact overview of the two lakes and Interlaken.",
     effort: "Easy scenic",
     weather: "Better than a peak day in mixed weather; skip Harder Kulm if cloud ceiling is low.",
-    route: ["lauterbrunnen", "interlaken", "brienz", "interlaken", "bern"],
+    route: ["lauterbrunnen-hotel", "interlaken", "brienz", "interlaken", "bern-hotel"],
     legs: [
       {
-        from: "Lauterbrunnen",
+        from: "Alpine Base Hostel - Adults only / Lauterbrunnen",
         to: "Interlaken Ost",
         mode: "train",
         duration: "~20 min",
+        recommendedTime: "Leave around 09:00-10:00 for a calm lake day.",
         guidance: "Morning transfer out of the valley; store luggage at Interlaken if helpful.",
       },
       {
@@ -740,6 +829,7 @@ export const dayPlans: DayPlan[] = [
         to: "Lake Brienz / Brienz",
         mode: "boat",
         duration: "Flexible",
+        recommendedTime: "Target late morning or early afternoon, depending on the boat timetable.",
         guidance: "Pick a cruise segment that leaves time for the evening transfer to Bern.",
       },
       {
@@ -747,13 +837,15 @@ export const dayPlans: DayPlan[] = [
         to: "Interlaken Ost",
         mode: "boat",
         duration: "Flexible",
+        recommendedTime: "Be back at Interlaken by mid/late afternoon if adding Harder Kulm or keeping a relaxed Bern transfer.",
         guidance: "Return to Interlaken with enough buffer for the optional Harder Kulm stop and the Bern train.",
       },
       {
         from: "Interlaken Ost",
-        to: "Bern",
+        to: "Bern Backpackers Hotel Glocke",
         mode: "train",
         duration: "~1 hr",
+        recommendedTime: "Aim for an early evening arrival in Bern, roughly 17:00-19:00.",
         guidance: "Evening transfer to Bern for the overnight; this keeps the final city stop on the natural route toward Zurich.",
       },
     ],
@@ -789,13 +881,14 @@ export const dayPlans: DayPlan[] = [
     jawDrop: "Bern’s old city sits in a bend of the Aare with long sandstone arcades, clock tower, and compact viewpoints.",
     effort: "Easy scenic",
     weather: "Bern works well in rain because the old town has long covered arcades.",
-    route: ["bern", "bern-old-city", "bern", "zurich"],
+    route: ["bern-hotel", "bern-old-city", "bern", "zurich"],
     legs: [
       {
-        from: "Bern station",
+        from: "Bern Backpackers Hotel Glocke",
         to: "Old City loop",
         mode: "walk",
         duration: "2-4 hr",
+        recommendedTime: "Start around 09:00-10:00 if your Zurich departure is not early.",
         guidance: "Zytglogge, arcades, cathedral terrace, river viewpoints, and cafes.",
       },
       {
@@ -803,6 +896,7 @@ export const dayPlans: DayPlan[] = [
         to: "Bern station",
         mode: "walk",
         duration: "~10-20 min",
+        recommendedTime: "Head back to luggage by late morning or early afternoon, depending on your Zurich buffer.",
         guidance: "Return to the station for luggage and the Zurich train; use tram shortcuts if weather or timing pushes you.",
       },
       {
@@ -810,6 +904,7 @@ export const dayPlans: DayPlan[] = [
         to: "Zurich HB",
         mode: "train",
         duration: "~1 hr",
+        recommendedTime: "Choose a train that reaches Zurich at least 2-3 hours before any fixed onward departure.",
         guidance: "Return to Zurich with a generous departure buffer; skip Bern entirely if this feels tight.",
       },
     ],

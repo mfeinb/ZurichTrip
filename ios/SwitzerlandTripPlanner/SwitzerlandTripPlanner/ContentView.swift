@@ -64,10 +64,10 @@ enum TripEngine {
                 jawDrop: "Jungfraujoch gives the glacier and high-Alpine station experience.",
                 effort: base.effort,
                 weather: base.weather,
-                route: ["lauterbrunnen", "jungfraujoch", "lauterbrunnen"],
+                route: ["lauterbrunnen-hotel", "jungfraujoch", "lauterbrunnen-hotel"],
                 legs: [
-                    TransitLeg(from: "Lauterbrunnen", to: "Jungfraujoch", mode: .train, duration: "Most of the day", guidance: "Price with your pass and only commit if visibility is excellent."),
-                    TransitLeg(from: "Jungfraujoch", to: "Lauterbrunnen", mode: .train, duration: "Most of the day", guidance: "Return with a generous margin.")
+                    TransitLeg(from: "Alpine Base Hostel - Adults only / Lauterbrunnen", to: "Jungfraujoch", mode: .train, duration: "Most of the day", recommendedTime: "Start early, ideally around 07:30-08:30.", guidance: "Price with your pass and only commit if visibility is excellent."),
+                    TransitLeg(from: "Jungfraujoch", to: "Alpine Base Hostel - Adults only", mode: .train, duration: "Most of the day", recommendedTime: "Return mid-afternoon so the day stays calm.", guidance: "Return with a generous margin.")
                 ],
                 highlights: ["Glacier station", "Aletsch Glacier", "High-Alpine views"],
                 optionalAddOns: base.optionalAddOns,
@@ -88,13 +88,13 @@ enum TripEngine {
                 jawDrop: base.jawDrop,
                 effort: base.effort,
                 weather: base.weather,
-                route: ["lauterbrunnen", "interlaken", "brienz", "interlaken", "harder", "interlaken", "bern"],
+                route: ["lauterbrunnen-hotel", "interlaken", "brienz", "interlaken", "harder", "interlaken", "bern-hotel"],
                 legs: [
                     base.legs[0],
                     base.legs[1],
                     base.legs[2],
-                    TransitLeg(from: "Interlaken Ost", to: "Harder Kulm", mode: .funicular, duration: "~10 min each way", guidance: "Use as a quick viewpoint if visibility is good and energy remains."),
-                    TransitLeg(from: "Harder Kulm", to: "Interlaken Ost", mode: .funicular, duration: "~10 min", guidance: "Return to Interlaken Ost before the Bern train."),
+                    TransitLeg(from: "Interlaken Ost", to: "Harder Kulm", mode: .funicular, duration: "~10 min each way", recommendedTime: "Only add this mid/late afternoon if Bern still feels easy.", guidance: "Use as a quick viewpoint if visibility is good and energy remains."),
+                    TransitLeg(from: "Harder Kulm", to: "Interlaken Ost", mode: .funicular, duration: "~10 min", recommendedTime: "Come down with enough margin for the Bern train.", guidance: "Return to Interlaken Ost before the Bern train."),
                     base.legs[3]
                 ],
                 highlights: ["Lake Brienz cruise", "Harder Kulm", "Bern evening"],

@@ -90,6 +90,7 @@ struct TransitLeg: Identifiable, Codable, Hashable {
     let to: String
     let mode: TransportMode
     let duration: String
+    let recommendedTime: String? = nil
     let guidance: String
 }
 

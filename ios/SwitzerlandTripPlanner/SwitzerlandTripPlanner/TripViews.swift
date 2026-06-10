@@ -159,6 +159,11 @@ struct CommuteCard: View {
                                 Text(segment.leg?.duration ?? "Route segment")
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.secondary)
+                                if let recommendedTime = segment.leg?.recommendedTime {
+                                    Text(recommendedTime)
+                                        .font(.caption.weight(.bold))
+                                        .foregroundStyle(.pink)
+                                }
                                 Text(segment.leg?.guidance ?? "")
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)

@@ -677,6 +677,16 @@ h1 {
   margin-bottom: 4px;
 }
 
+.recommended-time {
+  display: block;
+  margin: 2px 0 6px;
+  color: #9f1239;
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
 .ticket-advice {
   margin: 10px 0 0 50px;
   display: grid;

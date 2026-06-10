@@ -123,20 +123,22 @@ function applyVariants(day: DayPlan, mountainVariant: "schilthorn" | "jungfraujo
       summary:
         "Use this version only if the webcams and forecast are strong: it is the most iconic glacier day, but also the costliest and most weather-sensitive.",
       jawDrop: "Jungfraujoch gives the glacier and high-Alpine station experience; save it for the clearest day.",
-      route: ["lauterbrunnen", "jungfraujoch", "lauterbrunnen"],
+      route: ["lauterbrunnen-hotel", "jungfraujoch", "lauterbrunnen-hotel"],
       legs: [
         {
-          from: "Lauterbrunnen",
+          from: "Alpine Base Hostel - Adults only / Lauterbrunnen",
           to: "Jungfraujoch",
           mode: "train",
           duration: "Most of the day",
+          recommendedTime: "Start early, ideally around 07:30-08:30, only if the forecast and webcams justify it.",
           guidance: "Price this carefully with your pass choice and only commit if visibility is excellent.",
         },
         {
           from: "Jungfraujoch",
-          to: "Lauterbrunnen",
+          to: "Alpine Base Hostel - Adults only",
           mode: "train",
           duration: "Most of the day",
+          recommendedTime: "Return mid-afternoon so the day does not become a rushed high-altitude marathon.",
           guidance: "Return with a generous margin; this is not the day to stack extra evening logistics.",
         },
       ],
@@ -149,7 +151,7 @@ function applyVariants(day: DayPlan, mountainVariant: "schilthorn" | "jungfraujo
       title: "Lake Brienz, Harder Kulm, then Bern",
       summary:
         "Add Harder Kulm only if the Lake Brienz timing, weather, and energy all look good before continuing to Bern.",
-      route: ["lauterbrunnen", "interlaken", "brienz", "interlaken", "harder", "interlaken", "bern"],
+      route: ["lauterbrunnen-hotel", "interlaken", "brienz", "interlaken", "harder", "interlaken", "bern-hotel"],
       legs: [
         day.legs[0],
         day.legs[1],
@@ -159,6 +161,7 @@ function applyVariants(day: DayPlan, mountainVariant: "schilthorn" | "jungfraujo
           to: "Harder Kulm",
           mode: "funicular",
           duration: "~10 min each way",
+          recommendedTime: "Only add this in the mid/late afternoon if skies are open and Bern still feels easy.",
           guidance: "Use as a quick viewpoint if visibility is good and energy remains.",
         },
         {
@@ -166,6 +169,7 @@ function applyVariants(day: DayPlan, mountainVariant: "schilthorn" | "jungfraujo
           to: "Interlaken Ost",
           mode: "funicular",
           duration: "~10 min",
+          recommendedTime: "Come down with enough margin for the Bern train.",
           guidance: "Return to Interlaken Ost before committing to the evening train to Bern.",
         },
         day.legs[3],
@@ -396,7 +400,9 @@ export default function App() {
   const exportLines = [
     `${selectedDay.date}: ${selectedDay.title}`,
     selectedDay.base,
-    ...selectedDay.legs.map((leg) => `${leg.from} -> ${leg.to} (${leg.duration})`),
+    ...selectedDay.legs.map((leg) =>
+      `${leg.from} -> ${leg.to} (${leg.duration})${leg.recommendedTime ? ` | ${leg.recommendedTime}` : ""}`
+    ),
     `Weather note: ${weatherAdvice[selectedDay.id][weatherMode]}`,
     `Luggage: ${(luggageNotes[selectedDay.id] ?? []).join(" ")}`,
   ];
@@ -703,6 +709,7 @@ export default function App() {
                           {leg.from} <ChevronRight size={14} aria-hidden="true" /> {leg.to}
                         </strong>
                         <span>{leg.duration}</span>
+                        {leg.recommendedTime && <em className="recommended-time">{leg.recommendedTime}</em>}
                         <p>{leg.guidance}</p>
                       </div>
                     </button>
