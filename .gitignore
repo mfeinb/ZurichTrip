@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.local
+npm-debug.log*
+qa-screenshots/
+
+# Xcode / iOS
+DerivedData/
+build/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
