@@ -40,6 +40,20 @@ export type Place = {
   extraDetails: string[];
 };
 
+export type FoodSpot = {
+  id: string;
+  name: string;
+  placeId: string;
+  area: string;
+  coordinates: [number, number];
+  veganLevel: "Fully vegan" | "Vegetarian / vegan-focused" | "Vegan-friendly";
+  cuisine: string;
+  bestFor: string;
+  note: string;
+  verify: string;
+  url: string;
+};
+
 export type TransitLeg = {
   from: string;
   to: string;
@@ -407,6 +421,159 @@ export const places: Place[] = [
 ];
 
 export const placeById = new Map(places.map((place) => [place.id, place]));
+
+export const foodSpots: FoodSpot[] = [
+  {
+    id: "hiltl-zurich",
+    name: "Haus Hiltl",
+    placeId: "zurich",
+    area: "Zurich center",
+    coordinates: [47.373, 8.5367],
+    veganLevel: "Vegetarian / vegan-focused",
+    cuisine: "Vegetarian buffet and a la carte",
+    bestFor: "The safest Zurich crowd-pleaser when one person wants vegan food and others want lots of choice.",
+    note: "Long-running vegetarian institution with many clearly vegan items; good first or final Zurich meal.",
+    verify: "Reserve for dinner and double-check opening hours for your exact date.",
+    url: "https://hiltl.ch/en",
+  },
+  {
+    id: "kle-zurich",
+    name: "KLE",
+    placeId: "zurich",
+    area: "Zurich Wiedikon",
+    coordinates: [47.3692, 8.5204],
+    veganLevel: "Fully vegan",
+    cuisine: "Plant-based fine dining",
+    bestFor: "A special vegan dinner if you want one polished, memorable meal in Zurich.",
+    note: "More of a destination meal than a quick logistics stop; book ahead if it fits the schedule.",
+    verify: "Reserve early and confirm current menu/service days.",
+    url: "https://www.kle.restaurant/",
+  },
+  {
+    id: "tibits-lucerne",
+    name: "tibits Luzern",
+    placeId: "lucerne",
+    area: "Lucerne station area",
+    coordinates: [47.0505, 8.3103],
+    veganLevel: "Vegetarian / vegan-focused",
+    cuisine: "Vegetarian buffet with vegan labels",
+    bestFor: "Low-stress dinner after arrival or after Rigi because it is central, fast, and flexible.",
+    note: "Best practical Lucerne anchor for mixed appetites and tired travel days.",
+    verify: "Check buffet hours and holiday hours before counting on a late dinner.",
+    url: "https://www.tibits.ch/en/locations",
+  },
+  {
+    id: "karls-kraut-lucerne",
+    name: "Karls Kraut",
+    placeId: "lucerne",
+    area: "Lucerne old town edge",
+    coordinates: [47.0479, 8.3012],
+    veganLevel: "Vegetarian / vegan-focused",
+    cuisine: "Seasonal vegetarian cooking",
+    bestFor: "A quieter Lucerne meal when you want something more deliberate than a station-area buffet.",
+    note: "Useful second Lucerne option; menu and opening rhythm should be checked before relying on it.",
+    verify: "Confirm current opening days and vegan choices before going.",
+    url: "https://www.karlskraut.ch/",
+  },
+  {
+    id: "rigi-kulm-restaurant",
+    name: "Rigi Kulm restaurant",
+    placeId: "rigi",
+    area: "Rigi Kulm summit",
+    coordinates: [47.0567, 8.485],
+    veganLevel: "Vegan-friendly",
+    cuisine: "Summit restaurant",
+    bestFor: "A practical summit lunch if timing or weather makes returning to Lucerne for food awkward.",
+    note: "This is here as a planning fallback, not a vegan destination; mountain menus can be limited.",
+    verify: "Check current menu/opening and ask about vegan options before depending on it.",
+    url: "https://www.rigikulm.ch/en/restaurant/",
+  },
+  {
+    id: "airtime-lauterbrunnen",
+    name: "Airtime Cafe",
+    placeId: "lauterbrunnen",
+    area: "Lauterbrunnen village",
+    coordinates: [46.5937, 7.9081],
+    veganLevel: "Vegan-friendly",
+    cuisine: "Cafe, breakfast, casual bites",
+    bestFor: "Coffee, cake/snack energy, or an easy village breakfast before lifts and trains.",
+    note: "Good small-village fallback, especially when you do not want a heavy restaurant meal.",
+    verify: "Check current hours and vegan items; Alpine village cafes can vary by season.",
+    url: "https://www.airtime.ch/",
+  },
+  {
+    id: "weidstuebli-lauterbrunnen",
+    name: "Restaurant Weidstübli",
+    placeId: "lauterbrunnen",
+    area: "Camping Jungfrau / Lauterbrunnen",
+    coordinates: [46.5898, 7.9085],
+    veganLevel: "Vegan-friendly",
+    cuisine: "Swiss and international casual dinner",
+    bestFor: "A practical Lauterbrunnen dinner option near the valley floor after a mountain day.",
+    note: "Not a vegan specialist, but worth marking because Lauterbrunnen dinner choices are limited.",
+    verify: "Ask ahead about vegan mains and reserve if you want to rely on it.",
+    url: "https://www.campingjungfrau.swiss/en/restaurant-weidstuebli",
+  },
+  {
+    id: "bellevue-murren",
+    name: "Hotel Bellevue restaurant",
+    placeId: "murren",
+    area: "Mürren village",
+    coordinates: [46.5593, 7.8927],
+    veganLevel: "Vegan-friendly",
+    cuisine: "Alpine hotel restaurant",
+    bestFor: "A scenic Mürren lunch or early dinner if you stay up in the village longer than planned.",
+    note: "Use as a marked option, not a guaranteed vegan stop; small mountain villages reward calling ahead.",
+    verify: "Confirm opening and vegan availability before building the day around it.",
+    url: "https://www.bellevue-muerren.ch/",
+  },
+  {
+    id: "velo-cafe-interlaken",
+    name: "Velo Cafe",
+    placeId: "interlaken",
+    area: "Interlaken",
+    coordinates: [46.6868, 7.8574],
+    veganLevel: "Vegan-friendly",
+    cuisine: "Cafe, brunch, light meals",
+    bestFor: "A lighter Interlaken stop if you have luggage/boat timing gaps and need something easy.",
+    note: "Useful between trains and Lake Brienz, though it is not right on Interlaken Ost.",
+    verify: "Check current opening hours and vegan options before detouring from the station.",
+    url: "https://www.velo-cafe.ch/",
+  },
+  {
+    id: "tibits-bern",
+    name: "tibits Bern",
+    placeId: "bern",
+    area: "Bern station / old city edge",
+    coordinates: [46.9488, 7.4397],
+    veganLevel: "Vegetarian / vegan-focused",
+    cuisine: "Vegetarian buffet with vegan labels",
+    bestFor: "The easiest Bern vegan-friendly dinner after arriving from Interlaken, especially with luggage.",
+    note: "Very useful because it sits near the station and old city flow.",
+    verify: "Check buffet hours and whether you need a reservation for your dinner timing.",
+    url: "https://www.tibits.ch/en/locations",
+  },
+  {
+    id: "swing-kitchen-bern",
+    name: "Swing Kitchen Bern",
+    placeId: "bern",
+    area: "Bern center",
+    coordinates: [46.9492, 7.4442],
+    veganLevel: "Fully vegan",
+    cuisine: "Vegan burgers and fast casual",
+    bestFor: "A simple fully vegan meal when you want predictable, fast, no-language-stress food.",
+    note: "Good counterweight to Swiss mountain menus; easy final-night comfort food.",
+    verify: "Check current Bern location hours before going.",
+    url: "https://www.swingkitchen.com/",
+  },
+];
+
+export const foodSpotsByPlaceId = foodSpots.reduce((map, spot) => {
+  const existing = map.get(spot.placeId) ?? [];
+  existing.push(spot);
+  map.set(spot.placeId, existing);
+  return map;
+}, new Map<string, FoodSpot[]>());
 
 export const iconByMode: Record<TransportMode, LucideIcon> = {
   train: Train,
