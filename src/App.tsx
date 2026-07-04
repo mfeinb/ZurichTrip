@@ -8,7 +8,9 @@ import {
   Calculator,
   CalendarDays,
   ChevronRight,
+  ClipboardCheck,
   CloudSun,
+  CloudRain,
   ExternalLink,
   Hotel,
   Info,
@@ -21,6 +23,7 @@ import {
   Sparkles,
   TicketCheck,
   Utensils,
+  TriangleAlert,
 } from "lucide-react";
 import {
   dayPlans,
@@ -136,6 +139,90 @@ const luggageNotes: Record<number, string[]> = {
   4: ["Carry warm layers, sunglasses, water, and a compact rain shell.", "Avoid taking heavy bags on mountain lifts."],
   5: ["Use Interlaken Ost lockers if the Lake Brienz/Harder sequence gets awkward.", "Keep the Bern hotel close to station or old town."],
   6: ["Leave luggage at the Bern hotel or station lockers during the old-city loop.", "Return to Zurich early enough for airport or onward rail buffer."],
+};
+
+const dailyDecisionNotes: Record<number, string[]> = {
+  1: [
+    "Finish work, travel to Lucerne, and keep the evening intentionally simple.",
+    "Settle pass/ticket strategy before the Rigi day, but do not over-plan dinner.",
+  ],
+  2: [
+    "Check Rigi webcams before leaving Lucerne; do the full lake/cogwheel loop only if the summit is worthwhile.",
+    "Match boat and cogwheel timings before buying any separate ticket.",
+  ],
+  3: [
+    "Protect the Luzern-Interlaken train timing, then decide Mürren versus waterfalls after arrival.",
+    "Use this as a scenic transfer day, not a max-effort mountain day.",
+  ],
+  4: [
+    "Make the summit call from webcams: Schilthorn/Jungfraujoch for clear skies, Trümmelbach/valley for clouds or rain.",
+    "Do not buy expensive mountain tickets until visibility earns them.",
+  ],
+  5: [
+    "Choose Lake Brienz first, then add Harder Kulm only if timing and visibility still feel easy.",
+    "Keep the Bern transfer protected; this is the day most likely to sprawl.",
+  ],
+  6: [
+    "Enjoy Bern, but set the Zurich return buffer first and let that determine how long the old-city loop can be.",
+    "Use station/hotel luggage storage so the final morning stays light.",
+  ],
+};
+
+const rainPlans: Record<number, string[]> = {
+  1: ["Zurich/Lucerne covered old-town streets", "Hotel check-in", "SBB/pass setup", "Easy dinner"],
+  2: ["Lucerne old town", "Transport Museum or cafes", "Shorter lake ride if boats still appeal", "Skip Rigi Kulm if hidden"],
+  3: ["Luzern-Interlaken Express", "Lauterbrunnen waterfall walk", "Trümmelbach Falls if timing fits", "Warm dinner in the valley"],
+  4: ["Trümmelbach Falls", "Lauterbrunnen valley", "Mürren village only if mid-level views remain", "Skip high-summit tickets"],
+  5: ["Shorten Lake Brienz", "Interlaken lunch/lockers", "Earlier Bern arrival", "Covered Bern arcades in the evening"],
+  6: ["Bern covered arcades", "Zytglogge/cafes", "Short old-city loop", "Earlier Zurich return"],
+};
+
+const bufferWarnings: Record<number, string[]> = {
+  1: ["Avoid a tight Zurich work-to-train handoff; Lucerne check-in can be late but dinner options shrink."],
+  2: ["Missed boat/cogwheel connections can quietly eat summit time; check the full loop, not just the first leg."],
+  3: ["Leave margin for the Interlaken Ost transfer and the final Lauterbrunnen/Mürren access route."],
+  4: ["Last mountain lift/cable-car connections matter. Start descending before the day becomes a timetable puzzle."],
+  5: ["Bern transfer is the hard boundary. Skip Harder Kulm if it makes the evening train feel rushed."],
+  6: ["Zurich return buffer wins over squeezing in one more Bern stop, especially with a flight or fixed onward train."],
+};
+
+const packingLists: Record<number, string[]> = {
+  1: ["Light day bag", "Hotel confirmation", "SBB app ready", "Phone battery for evening navigation"],
+  2: ["Wind layer", "Sunglasses", "Water", "Pass/ticket proof", "Light snack for boat/cogwheel timing"],
+  3: ["Compact luggage setup", "Rain shell", "Camera/phone battery", "Layer for Mürren", "Hotel arrival details"],
+  4: ["Warm layer", "Rain shell", "Sunglasses", "Water", "Comfortable shoes for stairs/galleries", "Webcam links saved"],
+  5: ["Sunscreen", "Rain shell", "Locker plan", "Boat timetable screenshot", "Bern hotel details"],
+  6: ["Packed luggage", "Zurich departure details", "Portable breakfast/snack", "Umbrella or rain shell"],
+};
+
+const verifyItemsByDay: Record<number, { label: string; url?: string; priority: "must" | "optional" | "verify" }[]> = {
+  1: [
+    { label: "Zurich-Lucerne train time after work", url: "https://www.sbb.ch/en", priority: "must" },
+    { label: "Lucerne hotel check-in window", priority: "must" },
+  ],
+  2: [
+    { label: "Rigi webcam and operating status", url: "https://www.rigi.ch/en", priority: "must" },
+    { label: "Lake Lucerne boat timetable", url: "https://www.lakelucerne.ch/en/", priority: "verify" },
+    { label: "Whether your pass covers the full Rigi loop", url: "https://www.rigi.ch/en/inform/prices/discounts-for-individuals", priority: "verify" },
+  ],
+  3: [
+    { label: "Luzern-Interlaken Express departure and optional seat reservation", url: "https://www.zentralbahn.ch/en/experience/leisure/luzern-interlaken-express", priority: "verify" },
+    { label: "Mürren access route status", url: "https://schilthorn.ch/en/Infos/Timetable__Tariff", priority: "verify" },
+  ],
+  4: [
+    { label: "Schilthorn/Jungfraujoch webcams before buying", url: "https://www.jungfrau.ch/en-gb/live/operating-info/", priority: "must" },
+    { label: "Trümmelbach Falls opening hours", url: "https://www.truemmelbachfaelle.ch/e/", priority: "verify" },
+    { label: "Last cable-car/lift return connections", url: "https://schilthorn.ch/en/Infos/Timetable__Tariff", priority: "must" },
+  ],
+  5: [
+    { label: "Lake Brienz boat timetable and operating day", url: "https://www.bls.ch/en/freizeit-und-ferien/ausfluege/schifffahrt-brienzersee", priority: "must" },
+    { label: "Harder Kulm operation if opting in", url: "https://www.jungfrau.ch/en-gb/harder-kulm/", priority: "optional" },
+    { label: "Interlaken-Bern evening train", url: "https://www.sbb.ch/en", priority: "must" },
+  ],
+  6: [
+    { label: "Bern-Zurich return train and final departure buffer", url: "https://www.sbb.ch/en", priority: "must" },
+    { label: "Bern luggage storage or hotel bag hold", priority: "verify" },
+  ],
 };
 
 const passItems = [
@@ -948,6 +1035,107 @@ function PriceBreakdownPage() {
   );
 }
 
+function DailyDecisionCard({
+  day,
+  weatherMode,
+}: {
+  day: DayPlan;
+  weatherMode: WeatherMode;
+}) {
+  return (
+    <article className="section-block today-card">
+      <div className="panel-heading">
+        <ClipboardCheck size={19} aria-hidden="true" />
+        <h2>Today&apos;s Call</h2>
+      </div>
+      <p className="today-lead">{weatherAdvice[day.id][weatherMode]}</p>
+      <div className="action-list">
+        {(dailyDecisionNotes[day.id] ?? []).map((item) => (
+          <p key={item}>{item}</p>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function RainPlanCard({ dayID }: { dayID: number }) {
+  return (
+    <article className="section-block rain-plan-card">
+      <div className="panel-heading">
+        <CloudRain size={19} aria-hidden="true" />
+        <h2>Rain Mode</h2>
+      </div>
+      <div className="rain-plan-list">
+        {(rainPlans[dayID] ?? []).map((item, index) => (
+          <span key={item}>
+            {index + 1}. {item}
+          </span>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function BufferWarningCard({ dayID }: { dayID: number }) {
+  return (
+    <article className="section-block warning-card">
+      <div className="panel-heading">
+        <TriangleAlert size={19} aria-hidden="true" />
+        <h2>Buffer Warning</h2>
+      </div>
+      <div className="note-list compact">
+        {(bufferWarnings[dayID] ?? []).map((warning) => (
+          <p key={warning}>{warning}</p>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function VerifyChecklistCard({ dayID }: { dayID: number }) {
+  return (
+    <article className="section-block">
+      <div className="panel-heading">
+        <ListChecks size={19} aria-hidden="true" />
+        <h2>Verify Before Committing</h2>
+      </div>
+      <div className="checklist verify-checklist">
+        {(verifyItemsByDay[dayID] ?? []).map((item) => (
+          <label key={item.label}>
+            <input type="checkbox" />
+            <span>
+              {item.url ? (
+                <a href={item.url} target="_blank" rel="noreferrer">
+                  {item.label} <ExternalLink size={12} aria-hidden="true" />
+                </a>
+              ) : (
+                item.label
+              )}
+            </span>
+            <em className={`priority ${item.priority}`}>{priorityLabel(item.priority)}</em>
+          </label>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function PackingCard({ dayID }: { dayID: number }) {
+  return (
+    <article className="section-block packing-card">
+      <div className="panel-heading">
+        <Briefcase size={19} aria-hidden="true" />
+        <h2>Pack For This Day</h2>
+      </div>
+      <div className="packing-list">
+        {(packingLists[dayID] ?? []).map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+    </article>
+  );
+}
+
 function MapViewportController({
   routePlaces,
   contextPlaces,
@@ -1002,6 +1190,7 @@ export default function App() {
   const [weatherMode, setWeatherMode] = useState<WeatherMode>("clear");
   const [mountainVariant, setMountainVariant] = useState<"schilthorn" | "jungfraujoch">("schilthorn");
   const [includeHarder, setIncludeHarder] = useState(false);
+  const [showFoodPins, setShowFoodPins] = useState(false);
   const [passSelection, setPassSelection] = useState(() => new Set(passItems.map((item) => item.id)));
   const [bookingStatus, setBookingStatus] = useState<Record<string, BookingStatus>>({});
   const baseDay = dayPlans.find((day) => day.id === selectedDayId) ?? dayPlans[0];
@@ -1047,14 +1236,15 @@ export default function App() {
 
   const selectedSegment = routeSegments[selectedSegmentIndex] ?? routeSegments[0];
   const selectedPlace =
-    (selectedStopIndex !== null && routePlaces[selectedStopIndex]) ||
     (selectedPlaceId && placeById.get(selectedPlaceId)) ||
+    (selectedStopIndex !== null && routePlaces[selectedStopIndex]) ||
     routePlaces[0];
   const activePlaceIds = new Set(selectedDay.route);
   const alternatePlaceIds = new Set<string>();
   if (baseDay.id === 4) {
     alternatePlaceIds.add("schilthorn");
     alternatePlaceIds.add("jungfraujoch");
+    alternatePlaceIds.add("trummelbach");
   }
   const contextPlaces = useMemo(() => {
     const ids = new Set([...selectedDay.route, ...alternatePlaceIds]);
@@ -1222,7 +1412,7 @@ export default function App() {
                   </Tooltip>
                 </Marker>
               ))}
-              {foodSpots.map((spot) => {
+              {showFoodPins && foodSpots.map((spot) => {
                 const isDayRelevant = selectedFoodSpots.some((selectedSpot) => selectedSpot.id === spot.id);
                 return (
                   <Marker
@@ -1277,6 +1467,10 @@ export default function App() {
                 </Polyline>
               ))}
             </MapContainer>
+            <label className="map-food-toggle">
+              <input type="checkbox" checked={showFoodPins} onChange={(event) => setShowFoodPins(event.target.checked)} />
+              <span>Food pins</span>
+            </label>
             <div className="map-caption">
               <MapPinned size={17} aria-hidden="true" />
               <span>
@@ -1416,6 +1610,10 @@ export default function App() {
         </section>
 
         <section className="planning-panel">
+          <DailyDecisionCard day={selectedDay} weatherMode={weatherMode} />
+          <RainPlanCard dayID={selectedDay.id} />
+          <BufferWarningCard dayID={selectedDay.id} />
+
           <article className="section-block">
             <div className="panel-heading">
               <Route size={19} aria-hidden="true" />
@@ -1506,6 +1704,7 @@ export default function App() {
             </article>
           )}
 
+          {showFoodPins && (
           <article className="section-block food-block">
             <div className="panel-heading">
               <Utensils size={19} aria-hidden="true" />
@@ -1521,6 +1720,7 @@ export default function App() {
               ))}
             </div>
           </article>
+          )}
 
           <article className="section-block">
             <div className="panel-heading">
@@ -1589,6 +1789,8 @@ export default function App() {
             </div>
           </article>
 
+          <VerifyChecklistCard dayID={selectedDay.id} />
+
           <article className="section-block luggage-block">
             <div className="panel-heading">
               <Briefcase size={19} aria-hidden="true" />
@@ -1600,6 +1802,8 @@ export default function App() {
               ))}
             </div>
           </article>
+
+          <PackingCard dayID={selectedDay.id} />
         </section>
       </section>
 

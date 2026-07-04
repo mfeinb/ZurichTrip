@@ -745,6 +745,27 @@ h1 {
   box-shadow: 0 6px 16px rgba(21, 128, 61, 0.3);
 }
 
+.map-food-toggle {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 455;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #173832;
+  font-size: 0.85rem;
+  font-weight: 900;
+  box-shadow: 0 10px 28px rgba(23, 32, 29, 0.16);
+}
+
+.map-food-toggle input {
+  accent-color: #15803d;
+}
+
 .map-caption {
   position: absolute;
   left: 14px;
@@ -1024,6 +1045,62 @@ h1 {
 .section-block {
   padding: 16px;
   border-radius: 8px;
+}
+
+.today-card {
+  background: #eef7f5;
+  border: 1px solid rgba(15, 118, 110, 0.16);
+}
+
+.today-lead {
+  margin: 0 0 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: white;
+  color: #17406b;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.action-list {
+  display: grid;
+  gap: 8px;
+}
+
+.action-list p {
+  margin: 0;
+  padding-left: 12px;
+  border-left: 3px solid #0f766e;
+  color: #2f3f3b;
+  line-height: 1.45;
+}
+
+.rain-plan-card {
+  background: #f0f7ff;
+  border: 1px solid rgba(37, 99, 235, 0.14);
+}
+
+.rain-plan-list {
+  display: grid;
+  gap: 8px;
+}
+
+.rain-plan-list span {
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+  color: #17406b;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.warning-card {
+  background: #fff7ed;
+  border: 1px solid rgba(234, 88, 12, 0.18);
+}
+
+.warning-card .panel-heading svg {
+  color: #c2410c;
 }
 
 .leg-list {
@@ -1435,6 +1512,11 @@ h1 {
   gap: 9px;
 }
 
+.note-list.compact p {
+  background: rgba(255, 255, 255, 0.72);
+  color: #7c2d12;
+}
+
 .note-list p {
   margin: 0;
   padding: 11px;
@@ -1469,6 +1551,40 @@ h1 {
 
 .checklist span {
   line-height: 1.35;
+}
+
+.verify-checklist a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #0f5f58;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.verify-checklist a:hover {
+  text-decoration: underline;
+}
+
+.packing-card {
+  background: #f7fbfa;
+  border: 1px solid rgba(58, 83, 76, 0.1);
+}
+
+.packing-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.packing-list span {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid rgba(15, 118, 110, 0.16);
+  color: #173832;
+  font-size: 0.84rem;
+  font-weight: 850;
 }
 
 .priority {

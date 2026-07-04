@@ -334,6 +334,23 @@ export const places: Place[] = [
     ],
   },
   {
+    id: "trummelbach",
+    name: "Trümmelbach Falls",
+    kind: "Inside-the-mountain waterfalls",
+    region: "Lauterbrunnen Valley",
+    coordinates: [46.5716, 7.9134],
+    role: "Weather-safe waterfall backup",
+    note: "A dramatic series of glacial waterfalls inside the mountain, reached by bus/walk from Lauterbrunnen.",
+    bestFor: "A lower-valley alternative when summit visibility is poor, or an afternoon add-on after a shorter mountain plan.",
+    allow: "1.5-2.5 hours including valley transport, depending on bus timing and how slowly you walk the galleries.",
+    dontMiss: ["Tunnel lift", "Inside-mountain falls", "Valley bus ride", "Rainy-day drama"],
+    practical: "It is loud, wet, and stair-heavy in places; bring a light rain shell and check opening hours before going.",
+    extraDetails: [
+      "This is not a panoramic viewpoint, so it works when clouds ruin Schilthorn or Jungfraujoch.",
+      "It pairs best with a shortened Mürren/valley day rather than trying to force it after a full Jungfraujoch outing.",
+    ],
+  },
+  {
     id: "murren",
     name: "Mürren",
     kind: "Car-free cliff village",
@@ -448,6 +465,32 @@ export const foodSpots: FoodSpot[] = [
     note: "More of a destination meal than a quick logistics stop; book ahead if it fits the schedule.",
     verify: "Reserve early and confirm current menu/service days.",
     url: "https://www.kle.restaurant/",
+  },
+  {
+    id: "dar-zurich",
+    name: "DAR",
+    placeId: "zurich",
+    area: "Zurich city center",
+    coordinates: [47.3718, 8.535],
+    veganLevel: "Fully vegan",
+    cuisine: "Plant-based Moroccan / Mediterranean",
+    bestFor: "A more relaxed vegan dinner alternative to KLE, still special enough for a Zurich night.",
+    note: "Another Zineb Hattab restaurant, useful if KLE is booked or too formal for the evening.",
+    verify: "Reserve and confirm current opening days before building the Zurich evening around it.",
+    url: "https://www.restaurantdar.com/",
+  },
+  {
+    id: "veganitas-zurich",
+    name: "Veganitas",
+    placeId: "zurich",
+    area: "Zurich casual food",
+    coordinates: [47.3762, 8.5265],
+    veganLevel: "Fully vegan",
+    cuisine: "Vegan fast casual",
+    bestFor: "A quick fully vegan Zurich meal when you want low effort, not a long reservation dinner.",
+    note: "Good practical fallback near city transit, especially before/after rail logistics.",
+    verify: "Check which Zurich branch is most convenient and open when you need it.",
+    url: "https://veganitas.com/",
   },
   {
     id: "tibits-lucerne",
@@ -565,6 +608,19 @@ export const foodSpots: FoodSpot[] = [
     note: "Good counterweight to Swiss mountain menus; easy final-night comfort food.",
     verify: "Check current Bern location hours before going.",
     url: "https://www.swingkitchen.com/",
+  },
+  {
+    id: "bakery-bakery-bern",
+    name: "Bakery Bakery Bern",
+    placeId: "bern",
+    area: "Bern center",
+    coordinates: [46.9485, 7.4434],
+    veganLevel: "Fully vegan",
+    cuisine: "Vegan bakery and snacks",
+    bestFor: "Breakfast, pastries, or train snacks before the Zurich return.",
+    note: "Useful final-day food backup when you want something portable instead of a sit-down meal.",
+    verify: "Check branch hours and current selection before relying on it for breakfast.",
+    url: "https://bakerybakery.ch/",
   },
 ];
 
@@ -935,8 +991,16 @@ export const dayPlans: DayPlan[] = [
         guidance: "Return to Lauterbrunnen for the overnight; keep enough margin for last operating connections.",
       },
     ],
-    highlights: ["Morning webcam decision", "Schilthorn / Birg Thrill Walk", "Optional Jungfraujoch glacier day", "Flexible valley evening"],
-    backup: "Skip the peak and do Wengen, Mürren, waterfalls, or Interlaken if visibility is poor.",
+    highlights: [
+      "Morning webcam decision",
+      "Schilthorn / Birg Thrill Walk",
+      "Optional Jungfraujoch glacier day",
+      "Trümmelbach Falls lower-valley backup",
+      "Flexible valley evening",
+    ],
+    optionalAddOns: ["Trümmelbach Falls if summit visibility is poor or the Schilthorn day ends early", "Wengen or a valley waterfall walk"],
+    backup:
+      "If upper-mountain visibility is poor, skip the expensive peak and make Trümmelbach Falls the main event, with Mürren/Wengen/waterfalls as the softer add-ons.",
     priceEstimates: [
       {
         label: "Schilthorn default",
@@ -947,6 +1011,11 @@ export const dayPlans: DayPlan[] = [
         label: "Jungfraujoch upgrade",
         estimate: "CHF 75-170+ pp",
         note: "From Lauterbrunnen-style routes, this is usually the expensive option; add seat reservation if required.",
+      },
+      {
+        label: "Trümmelbach Falls backup",
+        estimate: "Modest paid entry",
+        note: "Verify the current adult fare and opening hours on the official falls site before going.",
       },
     ],
     decisions: [
@@ -962,9 +1031,16 @@ export const dayPlans: DayPlan[] = [
         tradeoff: "Higher cost and a longer logistics chain; poor visibility hurts more.",
         logistics: "Rail/cable route toward Eigergletscher, then Jungfrau Railway to the summit station.",
       },
+      {
+        title: "Trümmelbach Falls",
+        bestFor: "A dramatic lower-valley choice when high peaks are hidden.",
+        tradeoff: "No big panorama, but much less weather risk and lower commitment than a summit ticket.",
+        logistics: "Bus or valley walk from Lauterbrunnen, then tunnel lift/galleries inside the mountain.",
+      },
     ],
     reminders: [
       { label: "Check webcams before buying high-mountain tickets", priority: "must" },
+      { label: "Check Trümmelbach Falls official opening hours if using it as the cloudy-day backup", priority: "verify" },
       { label: "If choosing Jungfraujoch, book the mandatory May-Oct 2026 seat reservation after the forecast looks good; it is CHF 10 pp", priority: "must" },
       { label: "For Schilthorn, buy mountain tickets only once visibility looks worthwhile; reserve Piz Gloria separately only if you want a set restaurant table", priority: "optional" },
       { label: "Price both Schilthorn and Jungfraujoch with your chosen rail pass", priority: "verify" },
@@ -1135,8 +1211,12 @@ export const sourceLinks: SourceLink[] = [
   { label: "Jungfraujoch tickets", url: "https://www.jungfrau.ch/en-gb/jungfraujoch-top-of-europe/buy-jungfraujoch-ticket/" },
   { label: "Jungfraujoch seat reservation FAQ", url: "https://www.jungfrau.ch/en-gb/faq/" },
   { label: "Harder Kulm", url: "https://www.jungfrau.ch/en-gb/harder-kulm/" },
+  { label: "Trümmelbach Falls", url: "https://www.truemmelbachfaelle.ch/e/" },
   { label: "Jungfrau operating info", url: "https://www.jungfrau.ch/en-gb/live/operating-info/" },
   { label: "Bern Old City", url: "https://bern.com/en/explore/tourist-attractions/attractions/bern-s-old-city" },
+  { label: "Veganitas", url: "https://veganitas.com/" },
+  { label: "Bakery Bakery", url: "https://bakerybakery.ch/" },
+  { label: "DAR Zurich", url: "https://www.restaurantdar.com/" },
 ];
 
 export const summaryStats = [
